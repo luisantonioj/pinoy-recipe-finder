@@ -1,44 +1,61 @@
-import React from "react";
-import { useParams, Link } from "react-router-dom";
-import recipes from "../data/recipes.json";
+import React, { useEffect, useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import recipesData from "../data/recipes.json";
+import { useFavorites } from "../contexts/FavoritesContext";
 
-function RecipeDetailPage() {
+export default function RecipeDetail(){
   const { id } = useParams();
-  const recipe = recipes.find((r) => r.id === parseInt(id));
+  const navigate = useNavigate();
+  const [recipe, setRecipe] = useState(null);
+  const { addFavorite, removeFavorite, isFavorite } = useFavorites();
 
-  if (!recipe) {
-    return <p>Recipe not found.</p>;
-  }
+  useEffect(() => {
+    const found = recipesData.find(r => String(r.id) === String(id));
+    if (!found) {
+      // recipe not found, redirect to home
+      navigate("/");
+    } else setRecipe(found);
+  }, [id, navigate]);
+
+  if (!recipe) return null;
+
+  const fav = isFavorite(recipe.id);
 
   return (
-    <div className="max-w-2xl mx-auto">
-      <Link to="/" className="text-primary underline mb-4 block">
-        ← Back to recipes
-      </Link>
+    <div className="bg-white rounded p-6 shadow">
+      <div className="flex flex-col md:flex-row gap-6">
+        <div className="md:w-1/3">
+          <img src={recipe.image} alt={recipe.name} className="w-full rounded object-cover h-64"/>
+        </div>
 
-      <img
-        src={recipe.image}
-        alt={recipe.name}
-        className="w-full h-60 object-cover rounded-lg mb-4"
-      />
-      <h1 className="text-3xl font-bold mb-2">{recipe.name}</h1>
-      <p className="text-gray-700 mb-6">{recipe.description}</p>
+        <div className="md:flex-1">
+          <h2 className="text-2xl font-semibold" style={{color:"var(--color-text)"}}>{recipe.name}</h2>
+          <p className="text-gray-600 mt-2">{recipe.description}</p>
 
-      <h2 className="text-xl font-semibold mb-2">Ingredients</h2>
-      <ul className="list-disc list-inside mb-6">
-        {recipe.ingredients.map((ingredient, i) => (
-          <li key={i}>{ingredient}</li>
-        ))}
-      </ul>
+          <div className="mt-4">
+            <button
+              onClick={() => fav ? removeFavorite(recipe.id) : addFavorite(recipe)}
+              className={`px-4 py-2 rounded ${fav ? "bg-danger text-white" : "bg-primary text-white"}`}
+            >
+              {fav ? "Remove from Favorites" : "Add to Favorites"}
+            </button>
+          </div>
 
-      <h2 className="text-xl font-semibold mb-2">Instructions</h2>
-      <ol className="list-decimal list-inside space-y-2">
-        {recipe.instructions.map((step, i) => (
-          <li key={i}>{step}</li>
-        ))}
-      </ol>
+          <div className="mt-6">
+            <h3 className="font-semibold">Ingredients</h3>
+            <ul className="list-disc pl-5 mt-2">
+              {recipe.ingredients.map((ing, idx) => <li key={idx}>{ing}</li>)}
+            </ul>
+          </div>
+
+          <div className="mt-6">
+            <h3 className="font-semibold">Instructions</h3>
+            <ol className="list-decimal pl-5 mt-2">
+              {recipe.instructions.map((ins, idx) => <li key={idx} className="mb-2">{ins}</li>)}
+            </ol>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
-
-export default RecipeDetailPage;
