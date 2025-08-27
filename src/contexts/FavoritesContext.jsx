@@ -1,21 +1,39 @@
-import React from "react";
-import { Routes, Route } from "react-router-dom";
-import Home from "./pages/Home";
-import RecipeDetail from "./pages/RecipeDetail";
-import Favorites from "./pages/Favorites";
-import Header from "./components/Header";
+import React, { createContext, useContext, useEffect, useState } from "react";
 
-export default function App(){
+const FavoritesContext = createContext();
+
+export const FavoritesProvider = ({ children }) => {
+  const [favorites, setFavorites] = useState(() => {
+    try {
+      const raw = localStorage.getItem("pinoy_favorites_v1");
+      return raw ? JSON.parse(raw) : [];
+    } catch {
+      return [];
+    }
+  });
+
+  useEffect(() => {
+    localStorage.setItem("pinoy_favorites_v1", JSON.stringify(favorites));
+  }, [favorites]);
+
+  const addFavorite = (recipe) => {
+    setFavorites((prev) => {
+      if (prev.find(r => r.id === recipe.id)) return prev;
+      return [...prev, recipe];
+    });
+  };
+
+  const removeFavorite = (id) => {
+    setFavorites((prev) => prev.filter(r => r.id !== id));
+  };
+
+  const isFavorite = (id) => favorites.some(r => r.id === id);
+
   return (
-    <div className="min-h-screen">
-      <Header />
-      <main className="max-w-6xl mx-auto p-4">
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/recipe/:id" element={<RecipeDetail />} />
-          <Route path="/favorites" element={<Favorites />} />
-        </Routes>
-      </main>
-    </div>
+    <FavoritesContext.Provider value={{ favorites, addFavorite, removeFavorite, isFavorite }}>
+      {children}
+    </FavoritesContext.Provider>
   );
-}
+};
+
+export const useFavorites = () => useContext(FavoritesContext);
