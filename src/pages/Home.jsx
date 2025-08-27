@@ -1,36 +1,35 @@
-import React, { useState } from "react";
-import recipes from "../data/recipes.json";
-import RecipeCard from "../components/RecipeCard";
+import React, { useEffect, useMemo, useState } from "react";
+import recipesData from "../data/recipes.json";
 import SearchBar from "../components/SearchBar";
-import { Link } from "react-router-dom";
+import RecipeCard from "../components/RecipeCard";
 
-function HomePage() {
-  const [searchTerm, setSearchTerm] = useState("");
+export default function Home(){
+  const [query, setQuery] = useState("");
+  const [recipes, setRecipes] = useState([]);
 
-  const filteredRecipes = recipes.filter((recipe) =>
-    recipe.name.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  useEffect(() => {
+    // assume recipesData is local json import
+    setRecipes(recipesData);
+  }, []);
+
+  const filtered = useMemo(() => {
+    if (!query) return recipes;
+    const q = query.toLowerCase();
+    return recipes.filter(r => r.name.toLowerCase().includes(q));
+  }, [recipes, query]);
 
   return (
     <div>
-      <h1 className="text-2xl font-bold mb-4">Pinoy Recipe Finder</h1>
-      <SearchBar value={searchTerm} onChange={setSearchTerm} />
+      <div className="mb-6">
+        <h2 className="text-2xl font-semibold">Find a Recipe</h2>
+        <p className="text-sm text-gray-600">Search classic Filipino recipes.</p>
+      </div>
 
-      <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {filteredRecipes.map((recipe) => (
-          <li key={recipe.id}>
-            <Link to={`/recipe/${recipe.id}`}>
-              <RecipeCard recipe={recipe} />
-            </Link>
-          </li>
-        ))}
-      </ul>
+      <SearchBar value={query} onChange={setQuery} />
 
-      {filteredRecipes.length === 0 && (
-        <p className="mt-6 text-gray-500">No recipes found.</p>
-      )}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        {filtered.map(r => <RecipeCard key={r.id} recipe={r} />)}
+      </div>
     </div>
   );
 }
-
-export default HomePage;
