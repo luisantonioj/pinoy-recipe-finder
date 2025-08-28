@@ -78,14 +78,14 @@ export default function RecipeCard({ recipe }) {
           <h3 className="text-lg font-semibold text-gray-900 mb-2 line-clamp-1">{name}</h3>
           <p className="text-sm text-gray-600 mb-4 line-clamp-2">{description}</p>
           
-          {/* View Recipe Button */}
+          {/* View Recipe Button
           <Link 
             to={`/recipe/${id}`}
             className="inline-flex items-center justify-center w-full px-4 py-2 bg-primary text-white text-sm font-medium rounded-xl hover:bg-accent/90 transition-colors duration-200 focus-ring"
             onClick={() => window.scrollTo(0, 0)}
           >
             View Recipe
-          </Link>
+          </Link> */}
         </div>
       </Link>
     </article>
