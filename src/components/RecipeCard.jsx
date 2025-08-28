@@ -55,7 +55,7 @@ export default function RecipeCard({ recipe }) {
             aria-label={isFavorite(id) ? "Remove from favorites" : "Add to favorites"}
           >
             <Heart 
-              className={`h-5 w-5 ${isFavorite(id) ? "fill-green-500 text-green-500" : "text-gray-600"}`} 
+              className={`h-5 w-5 ${isFavorite(id) ? "fill-red-500 text-red-500" : "text-gray-600"}`} 
             />
           </button>
           
@@ -81,7 +81,8 @@ export default function RecipeCard({ recipe }) {
           {/* View Recipe Button */}
           <Link 
             to={`/recipe/${id}`}
-            className="inline-flex items-center justify-center w-full px-4 py-2 bg-primary text-white text-sm font-medium rounded-xl hover:bg-red-600 transition-colors duration-200 focus-ring"
+            className="inline-flex items-center justify-center w-full px-4 py-2 bg-primary text-white text-sm font-medium rounded-xl hover:bg-accent/90 transition-colors duration-200 focus-ring"
+            onClick={() => window.scrollTo(0, 0)}
           >
             View Recipe
           </Link>
