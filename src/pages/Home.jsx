@@ -19,7 +19,7 @@ export default function Home(){
   }, [recipes, query]);
 
   return (
-    <div>
+    <div className="bg-neutralbg">
       <div className="mb-6">
         <h2 className="text-2xl font-semibold">Find a Recipe</h2>
         <p className="text-sm text-gray-600">Search classic Filipino recipes.</p>
