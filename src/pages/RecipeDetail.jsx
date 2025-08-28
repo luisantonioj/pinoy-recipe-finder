@@ -89,13 +89,6 @@ export default function RecipeDetail(){
           {/* Action buttons */}
           <div className="absolute top-4 right-4 flex gap-2">
             <button
-              onClick={shareRecipe}
-              className="p-2 bg-white/90 backdrop-blur-sm rounded-full shadow-md hover:scale-110 transition-transform focus-ring"
-              aria-label="Share recipe"
-            >
-              <Share2 className="h-5 w-5 text-gray-700" />
-            </button>
-            <button
               onClick={toggleFav}
               className="p-2 bg-white/90 backdrop-blur-sm rounded-full shadow-md hover:scale-110 transition-transform focus-ring"
               aria-pressed={fav}
@@ -160,7 +153,7 @@ export default function RecipeDetail(){
             </ol>
           </section>
 
-          {/* Print/Share buttons at bottom */}
+          {/* Print/Share buttons at bottom
           <div className="mt-10 pt-6 border-t border-gray-200 flex flex-wrap gap-4">
             <button
               onClick={() => window.print()}
@@ -174,7 +167,7 @@ export default function RecipeDetail(){
             >
               Share Recipe
             </button>
-          </div>
+          </div> */}
         </div>
       </article>
     </div>
