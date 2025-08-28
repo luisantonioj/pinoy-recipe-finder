@@ -25,18 +25,10 @@ export default function Home(){
         <p className="text-sm text-gray-600">Search classic Filipino recipes.</p>
       </div>
 
-      <div className="max-w-2xl mx-auto mb-8">
-        <SearchBar value={query} onChange={setQuery} />
-      </div>
+      <SearchBar value={query} onChange={setQuery} />
 
-      <div className="grid-recipes max-w-6xl mx-auto">
-        {filtered.length > 0 ? (
-          filtered.map((r) => <RecipeCard key={r.id} recipe={r} />)
-        ) : (
-          <p className="text-center text-gray-500 col-span-full">
-            No recipes found.
-          </p>
-        )}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        {filtered.map(r => <RecipeCard key={r.id} recipe={r} />)}
       </div>
     </div>
   );
