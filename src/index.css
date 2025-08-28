@@ -1,0 +1,28 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* CSS variables (if needed elsewhere) */
+:root{
+  --primary:#4CAF50;
+  --accent:#FF9800;
+  --neutralBg:#F5F5F5;
+  --textDark:#333333;
+  --danger:#E53935;
+}
+
+html:focus-within { scroll-behavior: smooth; }
+* { outline-offset: 2px; }
+.focus-ring:focus { outline: 2px solid var(--accent); outline-offset: 2px; }
+.card { @apply bg-white rounded-2xl shadow-soft border border-gray-100; }
+.btn { @apply inline-flex items-center justify-center px-4 py-2 rounded-2xl font-medium transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2; }
+.btn-primary { @apply btn bg-primary text-white hover:opacity-90; }
+.btn-accent { @apply btn bg-accent text-white hover:opacity-90; }
+.btn-ghost { @apply btn bg-transparent hover:bg-gray-100; }
+.badge { @apply inline-flex items-center px-2 py-1 text-xs rounded-full; }
+.badge-danger { @apply badge bg-danger text-white; }
+.badge-accent { @apply badge bg-accent text-white; }
+.input { @apply w-full rounded-2xl border border-gray-300 bg-white px-4 py-2 focus:border-primary focus:ring-2 focus:ring-primary; }
+.link { @apply text-primary hover:underline; }
+.grid-recipes { @apply grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4; }
+header a[aria-current="page"] { @apply underline decoration-2; }
