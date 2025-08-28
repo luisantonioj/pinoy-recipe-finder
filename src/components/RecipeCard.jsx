@@ -19,6 +19,9 @@ export default function RecipeCard({ recipe }){
           <div className="w-full h-full flex items-center justify-center bg-neutral-200">
             <span className="sr-only">Image for {name}</span>
           </div>
+          <button className="absolute top-2 right-2 bg-white p-2 rounded-full shadow hover:scale-110 transition">
+            <Heart className="h-5 w-5 text-red-500" />
+          </button>
         </div>
         <div className="p-4">
           <h3 className="text-lg font-semibold mb-1">{name}</h3>
