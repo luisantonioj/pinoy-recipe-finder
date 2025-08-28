@@ -1,11 +1,14 @@
 import { Link } from "react-router-dom";
 import { Heart, Clock, Users } from "lucide-react";
+import { useFavorites } from '../contexts/FavoritesContext'; 
 import { useState } from "react";
 
 export default function RecipeCard({ recipe }) {
   const { id, name, image, description, cookTime, servings } = recipe;
-  const [isFavorite, setIsFavorite] = useState(false);
   const [imageError, setImageError] = useState(false);
+  
+  // Use the favorites context
+  const { isFavorite, addFavorite, removeFavorite } = useFavorites();
 
   const handleImageError = (e) => {
     e.currentTarget.style.display = "none";
@@ -15,7 +18,13 @@ export default function RecipeCard({ recipe }) {
   const toggleFavorite = (e) => {
     e.preventDefault();
     e.stopPropagation();
-    setIsFavorite(!isFavorite);
+    
+    // Use context methods instead of local state
+    if (isFavorite(id)) {
+      removeFavorite(id);
+    } else {
+      addFavorite(id);
+    }
   };
 
   return (
@@ -39,14 +48,14 @@ export default function RecipeCard({ recipe }) {
             </div>
           )}
           
-          {/* Favorite button */}
+          {/* Favorite button - now using context state */}
           <button 
             onClick={toggleFavorite}
             className="absolute top-3 right-3 bg-white/90 backdrop-blur-sm p-2 rounded-full shadow-md hover:scale-110 transition-transform duration-200 focus-ring"
-            aria-label={isFavorite ? "Remove from favorites" : "Add to favorites"}
+            aria-label={isFavorite(id) ? "Remove from favorites" : "Add to favorites"}
           >
             <Heart 
-              className={`h-5 w-5 ${isFavorite ? "fill-green-500 text-green-500" : "text-gray-600"}`} 
+              className={`h-5 w-5 ${isFavorite(id) ? "fill-green-500 text-green-500" : "text-gray-600"}`} 
             />
           </button>
           

@@ -20,7 +20,14 @@ export function FavoritesProvider({ children }){
     favorites,
     isFavorite: (id) => favorites.includes(id),
     addFavorite: (id) => setFavorites((prev) => prev.includes(id) ? prev : [...prev, id]),
-    removeFavorite: (id) => setFavorites((prev) => prev.filter(x => x !== id))
+    removeFavorite: (id) => setFavorites((prev) => prev.filter(x => x !== id)),
+    toggleFavorite: (id) => {
+      setFavorites((prev) => 
+        prev.includes(id) 
+          ? prev.filter(x => x !== id) 
+          : [...prev, id]
+      )
+    }
   }), [favorites])
 
   return <FavoritesContext.Provider value={value}>{children}</FavoritesContext.Provider>
