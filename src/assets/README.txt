@@ -1,0 +1,1 @@
+Place images here to match paths referenced in data/recipes.json.
