@@ -19,8 +19,8 @@ export default function Home(){
   }, [recipes, query]);
 
   return (
-    <div className="bg-neutralbg">
-      <div className="mb-6">
+    <div className="bg-neutralBg min-h-screen px-4 py-8">
+      <div className="mb-8 max-w-4xl mx-auto text-center">
         <h2 className="text-2xl font-semibold">Find a Recipe</h2>
         <p className="text-sm text-gray-600">Search classic Filipino recipes.</p>
       </div>
