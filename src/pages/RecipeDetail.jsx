@@ -152,6 +152,19 @@ export default function RecipeDetail(){
               ))}
             </ol>
           </section>
+          
+          {/* Add to Favorites/Remove from Favorites button */}
+          <div className="mt-8">
+            <button
+              onClick={toggleFav}
+              className={`w-full py-3 px-4 rounded-xl font-medium text-white transition-colors duration-200 focus-ring ${
+                fav ? 'bg-red-500 hover:bg-red-600' : 'bg-accent hover:bg-accent/90'
+              }`}
+              aria-pressed={fav}
+            >
+              {fav ? 'Remove from Favorites' : 'Add to Favorites'}
+            </button>
+          </div>
 
           {/* Print/Share buttons at bottom
           <div className="mt-10 pt-6 border-t border-gray-200 flex flex-wrap gap-4">
