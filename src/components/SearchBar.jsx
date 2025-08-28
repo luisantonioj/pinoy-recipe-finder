@@ -1,21 +1,14 @@
 import React from "react";
 
-function SearchBar({ value, onChange }) {
+export default function SearchBar({ value, onChange, placeholder="Search recipes..." }){
   return (
-    <div className="mb-6">
-      <label htmlFor="search" className="sr-only">
-        Search recipes
-      </label>
+    <div className="mb-4">
       <input
-        id="search"
-        type="text"
-        placeholder="Search by recipe name..."
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary"
+        placeholder={placeholder}
+        className="w-full border rounded p-3 focus:outline-none focus:ring-2 focus:ring-primary"
       />
     </div>
   );
 }
-
-export default SearchBar;
