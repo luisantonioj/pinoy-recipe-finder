@@ -29,7 +29,7 @@ export default function RecipeCard({ recipe }) {
 
   return (
     <article className="card overflow-hidden group relative rounded-2xl bg-white border border-gray-100 shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
-      <Link to={`/recipe/${id}`} className="block focus-ring rounded-2xl">
+      <Link to={`/recipe/${id}`} className="block focus-ring rounded-2xl" onClick={() => window.scrollTo(0, 0)}>
         <div className="aspect-video bg-gradient-to-br from-neutral-100 to-neutral-200 overflow-hidden relative">
           {!imageError ? (
             <img
