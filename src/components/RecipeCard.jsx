@@ -1,11 +1,12 @@
 import { Link } from "react-router-dom";
-import { Heart, Clock, Users } from "lucide-react";
+import { Heart, Clock, Users, Eye } from "lucide-react";
 import { useFavorites } from '../contexts/FavoritesContext'; 
 import { useState } from "react";
 
 export default function RecipeCard({ recipe }) {
   const { id, name, image, description, cookTime, servings } = recipe;
   const [imageError, setImageError] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
   
   // Use the favorites context
   const { isFavorite, addFavorite, removeFavorite } = useFavorites();
@@ -28,8 +29,10 @@ export default function RecipeCard({ recipe }) {
   };
 
   return (
-    <article className="card overflow-hidden group relative rounded-2xl bg-white border border-gray-100 shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
-      <Link to={`/recipe/${id}`} className="block focus-ring rounded-2xl">
+    <article className="card overflow-hidden group relative rounded-2xl bg-white border border-gray-100 shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1" 
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}>
+      <Link to={`/recipe/${id}`} className="block focus-ring rounded-2xl" onClick={() => window.scrollTo(0, 0)}>
         <div className="aspect-video bg-gradient-to-br from-neutral-100 to-neutral-200 overflow-hidden relative">
           {!imageError ? (
             <img
@@ -45,6 +48,16 @@ export default function RecipeCard({ recipe }) {
                 <span className="text-2xl">🍳</span>
               </div>
               <span className="text-neutral-500 text-sm text-center">No image available</span>
+            </div>
+          )}
+
+          {/* "See Recipe" overlay on hover */}
+          {isHovered && (
+            <div className="absolute inset-0 bg-black/50 flex items-center justify-center transition-opacity duration-300">
+              <div className="flex items-center gap-2 bg-white/90 text-gray-800 px-4 py-2 rounded-full font-medium">
+                <Eye className="h-4 w-4" />
+                <span>See Recipe</span>
+              </div>
             </div>
           )}
           
@@ -78,14 +91,14 @@ export default function RecipeCard({ recipe }) {
           <h3 className="text-lg font-semibold text-gray-900 mb-2 line-clamp-1">{name}</h3>
           <p className="text-sm text-gray-600 mb-4 line-clamp-2">{description}</p>
           
-          {/* View Recipe Button */}
+          {/* View Recipe Button
           <Link 
             to={`/recipe/${id}`}
             className="inline-flex items-center justify-center w-full px-4 py-2 bg-primary text-white text-sm font-medium rounded-xl hover:bg-accent/90 transition-colors duration-200 focus-ring"
             onClick={() => window.scrollTo(0, 0)}
           >
             View Recipe
-          </Link>
+          </Link> */}
         </div>
       </Link>
     </article>
