@@ -26,6 +26,13 @@ export default function RecipeCard({ recipe }){
         <div className="p-4">
           <h3 className="text-lg font-semibold mb-1">{name}</h3>
           <p className="text-sm text-gray-600 line-clamp-2">{description}</p>
+          {/* View Recipe Button */}
+          <Link
+            to={`/recipe/${id}`}
+            className="mt-auto bg-red-500 text-white text-center py-2 rounded-lg hover:bg-red-600 transition"
+          >
+            View Recipe
+          </Link>
         </div>
       </Link>
     </article>
