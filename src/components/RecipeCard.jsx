@@ -1,8 +1,8 @@
-import { Link } from 'react-router-dom'
-import { Heart } from 'lucide-react'
+import { Link } from "react-router-dom";
+import { Heart } from "lucide-react";
 
-export default function RecipeCard({ recipe }){
-  const { id, name, image, description } = recipe
+export default function RecipeCard({ recipe }) {
+  const { id, name, image, description } = recipe;
 
   return (
     <article className="card overflow-hidden group relative rounded-2xl shadow-sm hover:shadow-md transition">
@@ -11,7 +11,9 @@ export default function RecipeCard({ recipe }){
           <img
             src={image}
             alt={name}
-            onError={(e)=>{ e.currentTarget.style.display='none' }}
+            onError={(e) => {
+              e.currentTarget.style.display = "none";
+            }}
             className="w-full h-full object-cover group-hover:scale-105 transition"
             loading="lazy"
           />
@@ -36,5 +38,5 @@ export default function RecipeCard({ recipe }){
         </div>
       </Link>
     </article>
-  )
+  );
 }
