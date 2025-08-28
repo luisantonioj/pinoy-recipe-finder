@@ -1,10 +1,11 @@
 import { Link } from 'react-router-dom'
+import { Heart } from 'lucide-react'
 
 export default function RecipeCard({ recipe }){
   const { id, name, image, description } = recipe
 
   return (
-    <article className="card overflow-hidden group">
+    <article className="card overflow-hidden group relative rounded-2xl shadow-sm hover:shadow-md transition">
       <Link to={`/recipe/${id}`} className="block focus-ring">
         <div className="aspect-video bg-neutral-200 overflow-hidden">
           <img
